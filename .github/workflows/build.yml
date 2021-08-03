@@ -32,12 +32,12 @@ jobs:
       - 
         uses: actions/checkout@v2
       - 
-        name: Get OctoPrint Stable
-        id: latest-octoprint
+        name: Get SimplyPi-Docker Stable
+        id: latest-SimplyPi-Docker
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          owner: OctoPrint
-          repo: OctoPrint
+          owner: SimplyPrint
+          repo: SimplyPi-Docker
           excludes: prerelease,draft
       - 
         name: Set up QEMU
@@ -80,12 +80,12 @@ jobs:
       - 
         uses: actions/checkout@v2
       - 
-        name: Get OctoPrint Stable
-        id: latest-octoprint
+        name: Get SimplyPi-Docker Stable
+        id: latest-SimplyPi-Docker
         uses: pozetroninc/github-action-get-latest-release@master
         with:
-          owner: OctoPrint
-          repo: OctoPrint
+          owner: SimplyPrint
+          repo: SimplyPi-Docker
           excludes: prerelease,draft
       - 
         name: Set up QEMU
