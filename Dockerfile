@@ -18,6 +18,10 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && curl -fsSLO "https://github.com/just-containers/s6-overlay/releases/download/$S6_VERSION/s6-overlay-$ARCH.tar.gz"
 
 
+#install SimplyPrint plugin
+RUN echo "Installing Slic3r plugin..."
+RUN pip install https://github.com/SimplyPrint/OctoPrint-SimplyPrint/archive/master.zip
+
 FROM python:${PYTHON_BASE_IMAGE} AS build
 
 ARG octoprint_ref
