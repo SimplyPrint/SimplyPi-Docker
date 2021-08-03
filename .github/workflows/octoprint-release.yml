@@ -48,7 +48,7 @@ jobs:
           repo: SimplyPi-Docker
           excludes: prerelease,draft
       - 
-        run: echo "latest stable release ${{ steps.stable-octoprint.outputs.release }}"
+        run: echo "latest stable release ${{ steps.stable-SimplyPi-Docker.outputs.release }}"
       -
         name: Set up QEMU
         id: qemu
@@ -81,8 +81,8 @@ jobs:
             %X.Y%::${{ steps.buildxy.outputs.buildxy }}
             %X.Y.Z%
           extra_tags: |
-            latest::${{ steps.stable-octoprint.outputs.release == github.event.client_payload.tag_name }}
-            edge::${{ github.event.action == 'prereleased' || github.event.client_payload.tag_name == steps.latest-octoprint.outputs.release }}
+            latest::${{ steps.stable-SimplyPi-Docker.outputs.release == github.event.client_payload.tag_name }}
+            edge::${{ github.event.action == 'prereleased' || github.event.client_payload.tag_name == steps.stable-SimplyPi-Docker.outputs.release }}
             canary::${{ github.event.action == 'canary' }}
             bleeding::${{ github.event.action == 'bleeding' }}
       -
@@ -135,7 +135,7 @@ jobs:
           repo: SimplyPi-Docker
           excludes: prerelease,draft
       - 
-        run: echo "latest stable release ${{ steps.stable-octoprint.outputs.release }}"
+        run: echo "latest stable release ${{ steps.stable-SimplyPi-Docker.outputs.release }}"
       -
         name: Set up QEMU
         id: qemu
@@ -155,7 +155,7 @@ jobs:
             ${{ runner.os }}-buildx-
       -
         id: buildxy
-        run: echo '::set-output name=buildxy::${{ (github.event.action == 'deploy'|| github.event.action == 'released') && github.event.client_payload.tag_name == steps.stable-octoprint.outputs.release }}'
+        run: echo '::set-output name=buildxy::${{ (github.event.action == 'deploy'|| github.event.action == 'released') && github.event.client_payload.tag_name == steps.stable-SimplyPi-Docker.outputs.release }}'
       -
         name: Tagging Strategy
         id: tagging
@@ -168,8 +168,8 @@ jobs:
             %X.Y%-minimal::${{ steps.buildxy.outputs.buildxy }}
             %X.Y.Z%-minimal
           extra_tags: |
-            minimal::${{ steps.stable-octoprint.outputs.release == github.event.client_payload.tag_name }}
-            edge-minimal::${{ github.event.action == 'prereleased' || github.event.client_payload.tag_name == steps.latest-octoprint.outputs.release }}
+            minimal::${{ steps.stable-SimplyPi-Docker.outputs.release == github.event.client_payload.tag_name }}
+            edge-minimal::${{ github.event.action == 'prereleased' || github.event.client_payload.tag_name == steps.latest-SimplyPi-Docker.outputs.release }}
             canary-minimal::${{ github.event.action == 'canary' }}
             bleeding-minimal::${{ github.event.action == 'bleeding' }}
       -
@@ -267,14 +267,14 @@ jobs:
         uses: HackerHappyHour/tagging-strategy@v3
         with:
           image_name: SimplyPrint/SimplyPi-Docker #octoprint/octoprint
-          tag_name: ${{ steps.stable-octoprint.outputs.release }}
+          tag_name: ${{ steps.stable-SimplyPi-Docker.outputs.release }}
           tags: |
             %X%
             %X.Y%
             %X.Y.Z%
           extra_tags: |
             latest
-            edge::${{ steps.stable-octoprint.outputs.release == steps.latest-octoprint.outputs.release }}
+            edge::${{ steps.stable-SimplyPi-Docker.outputs.release == steps.latest-SimplyPi-Docker.outputs.release }}
       -
         name: Login to DockerHub
         uses: docker/login-action@v1
@@ -296,7 +296,7 @@ jobs:
             linux/arm/v7
             linux/arm64
           build-args: |
-            octoprint_ref=${{ steps.stable-octoprint.outputs.release }}
+            octoprint_ref=${{ steps.stable-SimplyPi-Docker.outputs.release }}
           labels: ${{ needs.meta.outputs.labels }}
 
   release_minimal_on_push:
@@ -349,14 +349,14 @@ jobs:
         uses: HackerHappyHour/tagging-strategy@v3
         with:
           image_name: SimplyPrint/SimplyPi-Docker #octoprint/octoprint
-          tag_name: ${{ steps.stable-octoprint.outputs.release }}
+          tag_name: ${{ steps.stable-SimplyPi-Docker.outputs.release }}
           tags: |
             %X%-minimal
             %X.Y%-minimal
             %X.Y.Z%-minimal
           extra_tags: |
             minimal
-            edge-minimal::${{ steps.stable-octoprint.outputs.release == steps.latest-octoprint.outputs.release }}
+            edge-minimal::${{ steps.stable-SimplyPi-Docker.outputs.release == steps.latest-SimplyPi-Docker.outputs.release }}
       -
         name: Login to DockerHub
         uses: docker/login-action@v1
@@ -380,5 +380,5 @@ jobs:
             linux/arm/v7
             linux/arm64
           build-args: |
-            octoprint_ref=${{ steps.stable-octoprint.outputs.release }}
+            octoprint_ref=${{ steps.stable-SimplyPi-Docker.outputs.release }}
           labels: ${{ needs.meta.outputs.labels }}
