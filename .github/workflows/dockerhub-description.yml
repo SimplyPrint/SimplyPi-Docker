@@ -23,7 +23,7 @@ jobs:
 
   update-dockerhub-doc:
     runs-on: ubuntu-latest
-    if: (needs.filters.outputs.readme == 'true' || github.event_name == 'workflow_dispatch') && github.repository_owner == 'OctoPrint'
+    if: (needs.filters.outputs.readme == 'true' || github.event_name == 'workflow_dispatch') && github.repository_owner == 'SimplyPrint'
 
     steps:
       -
@@ -32,6 +32,6 @@ jobs:
         name: Update DockerHub Description
         uses: peter-evans/dockerhub-description@v2.4.1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ secrets.DOCKER_ID }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: octoprint/octoprint
+          repository: SimplyPrint/SimplyPi-Docker
