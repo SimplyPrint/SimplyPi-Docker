@@ -2,8 +2,14 @@ accessControl:
   userfile: /octoprint/octoprint/users.yaml
 server:
   commands:
-    serverRestartCommand: s6-svc -r /var/run/s6/services/octoprint
+    serverRestartCommand: redirfd -w 2 /dev/null s6-svscanctl -t /var/run/s6/services
+    systemRestartCommand: redirfd -w 2 /dev/null s6-svscanctl -t /var/run/s6/services
+    systemShutdownCommand: redirfd -w 2 /dev/null s6-svscanctl -t /var/run/s6/services
 webcam:
   ffmpeg: /usr/bin/ffmpeg
   snapshot: http://localhost:8080/?action=snapshot
   stream: /webcam/?action=stream
+plugins:
+  SimplyPrint:
+    sp_local_installed: true
+    from_image: true
